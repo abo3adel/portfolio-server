@@ -21,7 +21,7 @@ class ProjectFactory extends Factory
             "title" => $title,
             "slug" => Str::slug($title),
             "link" => $this->faker->url,
-            "type" => Arr::random(ProjectType::getAll(), 1)[0],
+            "type" => Arr::random(ProjectType::values(), 1)[0],
             "img" => "https://images.test/posts/" . random_int(1, 15) . ".jpg",
             "download_url" => $this->faker->boolean ? $this->faker->url : null,
             "shots" => [

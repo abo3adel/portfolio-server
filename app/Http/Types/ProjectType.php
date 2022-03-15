@@ -2,15 +2,15 @@
 
 namespace App\Http\Types;
 
-final class ProjectType
+enum ProjectType: string
 {
-    const ALL = "all";
-    const LARAVEL = "laravel";
-    const SPA = "spa";
-    const MOBILE = "mobile";
+    case ALL = "all";
+    case LARAVEL = "laravel";
+    case SPA = "spa";
+    case MOBILE = "mobile";
 
-    public static function getAll(): array
+    public static function values(): array
     {
-        return [self::ALL, self::LARAVEL, self::SPA, self::MOBILE];
+       return array_column(self::cases(), 'value');
     }
 }
