@@ -24,7 +24,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('resources.views.posts.index');
+        return view('posts.index');
     }
 
     /**
