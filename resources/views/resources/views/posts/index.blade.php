@@ -1,3 +1,3 @@
-@extends('layouts.guest')
-
-<div>sadsadsad</div>
+<x-guest-layout>
+    <div>sadasdsad</div>
+</x-guest-layout>
