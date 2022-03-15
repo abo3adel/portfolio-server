@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\EmailController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
     return $request->user();
 });
+
+Route::post("/send-mail", [EmailController::class, "send"]);
+
+Route::get("/projects", [ProjectController::class, "index"]);
+
+Route::get("/posts", [PostController::class, "getLatest"]);
