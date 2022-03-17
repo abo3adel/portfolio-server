@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html x-data="{darkMode: false}"
+<html x-data="{darkMode: $persist(false)}"
     lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-    dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
+    dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}"
+    :class="{'dark': darkMode}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,11 +23,10 @@
         img:not([src]):not([srcset]) {
             visibility: hidden;
         }
-
     </style>
 </head>
 
-<body>
+<body class="bg-gray-100 dark:bg-gray-900">
     @include('layouts.guest-nav')
     <div class="font-sans antialiased text-gray-900">
         {{ $slot }}
