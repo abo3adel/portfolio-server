@@ -3,6 +3,7 @@
     lang="{{ str_replace('_', '-', app()->getLocale()) }}"
     dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}"
     :class="{'dark': darkMode}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,12 +24,13 @@
         img:not([src]):not([srcset]) {
             visibility: hidden;
         }
+
     </style>
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-900">
+<body class="bg-gradient-to-r from-gray-300 to-gray-400 dark:from-gray-800 dark:to-gray-900 dark:text-gray-100">
     @include('layouts.guest-nav')
-    <div class="font-sans antialiased text-gray-900">
+    <div class="font-sans antialiased py-24">
         {{ $slot }}
     </div>
 </body>
