@@ -27,4 +27,8 @@
             </div>
         @endforeach
     </div>
+
+    <div class="pagination py-8 px-2">
+        {{$posts->links()}}
+    </div>
 </x-guest-layout>

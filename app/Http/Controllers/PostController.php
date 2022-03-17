@@ -25,10 +25,7 @@ class PostController extends Controller
     public function index()
     {
         return view("posts.index", [
-            "posts" => Post::with("category")
-                ->latest()
-                ->limit(20)
-                ->get(),
+            "posts" => Post::with("category")->paginate(),
         ]);
     }
 
