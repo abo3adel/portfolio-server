@@ -1,24 +1,24 @@
 <!-- Navigation Start -->
-<div class="fixed z-50 w-full transition bg-blue-700 dark:bg-gray-800 text-gray-200" x-ref="nav">
-    <div x-data="{ open: false }"
+<div class="fixed z-50 w-full transition bg-blue-700 dark:bg-gray-800 text-gray-200" x-ref="nav" x-data="{ openCollapsedMenu: false, languageMenu: false }" x-on:click.outside="openCollapsedMenu = false">
+    <div
         class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
         <div class="flex flex-row items-center justify-between p-4">
             <a href="/"
                 class="text-lg font-semibold tracking-widest text-white whitespace-pre rounded-lg focus:outline-none focus:shadow-outline"
                 style="font-variant: small-caps">{{ __('nav.portfolio') }}</a>
             <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline"
-                x-on:click.prevent="open = !open">
+                x-on:click.prevent="openCollapsedMenu = !openCollapsedMenu">
                 <svg fill="currentColor" viewbox="0 0 20 20" class="w-6 h-6">
-                    <path x-show="!open" fill-rule="evenodd"
+                    <path x-show="!openCollapsedMenu" fill-rule="evenodd"
                         d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
                         clip-rule="evenodd"></path>
-                    <path x-show="open" fill-rule="evenodd"
+                    <path x-show="openCollapsedMenu" fill-rule="evenodd"
                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                         clip-rule="evenodd"></path>
                 </svg>
             </button>
         </div>
-        <nav :class="{'flex bg-blue-700 dark:bg-gray-800': open, 'hidden bg-[transparent]': !open}"
+        <nav :class="{'flex bg-blue-700 dark:bg-gray-800': openCollapsedMenu, 'hidden bg-[transparent]': !openCollapsedMenu}"
             class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-center md:flex-row">
             <a class="md:hidden px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg !text-center dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline capitalize"
                 href="#" x-on:click.prevent="darkMode = !darkMode">
@@ -41,19 +41,19 @@
                 </a>
             @endforeach
             
-            <div x-on:click.away="open = false" class="relative" x-data="{ open: false }">
-                <button x-on:click.prevent="open = !open"
+            <div x-on:click.outside="languageMenu = false" class="relative">
+                <button x-on:click.prevent="languageMenu = !languageMenu"
                     class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left capitalize bg-transparent rounded-lg dark:bg-transparent dark:focus:text-white dark:hover:text-white dark:focus:bg-gray-600 dark:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
                     <i class="fas fa fa-language"></i>
                     <span>{{ __('nav.language') }}</span>
-                    <svg fill="currentColor" viewbox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}"
+                    <svg fill="currentColor" viewbox="0 0 20 20" :class="{'rotate-180': languageMenu, 'rotate-0': !languageMenu}"
                         class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
                         <path fill-rule="evenodd"
                             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                             clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                <div x-show="languageMenu" x-transition:enter="transition ease-out duration-100"
                     x-transition:enter-start="transform opacity-0 scale-95"
                     x-transition:enter-end="transform opacity-100 scale-100"
                     x-transition:leave="transition ease-in duration-75"
