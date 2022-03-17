@@ -14,10 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(["prefix" => LaravelLocalization::setLocale()], function () {
+    Route::get("/dashboard", function () {
+        return view("dashboard");
+    })
+        ->middleware(["auth"])
+        ->name("dashboard");
 
-Route::get('/', [PostController::class, 'index']);
+    Route::get("/", [PostController::class, "index"])->name('news');
+    Route::get("/tutorials", [PostController::class, "index"])->name('tutorials');
 
-require __DIR__.'/auth.php';
+    require __DIR__ . "/auth.php";
+});
