@@ -1,4 +1,13 @@
-<x-guest-layout>
+<x-blog-layout>
+    @empty($posts->items())
+    <div class="p-3 text-center w-3/4 mx-auto">
+        <i class="fas fa-blog fa-10x text-gray-500 dark:text-gray-700 pb-7"></i>
+        <p class="text-xl font-blod text-orange-700 dark:text-orange-500 p-2">
+            {{__('blog.empty')}}
+        </p>
+    </div>
+    @endempty
+
     <div class="grid grid-cols-1 gap-5 p-2 gap-y-8 sm:p-4 md:grid-cols-2 lg:grid-cols-3">
         @foreach($posts as $post)
             <div class="relative pl-1 transition duration-500 transform cursor-pointer rounded-xl hover:scale-105">
@@ -29,6 +38,6 @@
     </div>
 
     <div class="pagination py-8 px-2">
-        {{$posts->links()}}
+        {{$posts->withQueryString()->links()}}
     </div>
-</x-guest-layout>
+</x-blog-layout>

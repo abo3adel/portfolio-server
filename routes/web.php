@@ -21,8 +21,11 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function () {
         ->middleware(["auth"])
         ->name("dashboard");
 
-    Route::get("/", [PostController::class, "index"])->name('news');
     Route::get("/tutorials", [PostController::class, "index"])->name('tutorials');
 
+    Route::get('f', [PostController::class, 'find'])->name('search');
+
+
+    Route::get("/", [PostController::class, "index"])->name('news');
     require __DIR__ . "/auth.php";
 });

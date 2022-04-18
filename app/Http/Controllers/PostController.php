@@ -18,19 +18,40 @@ class PostController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the posts.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         return view("posts.index", [
-            "posts" => Post::with("category")->paginate(),
+            "posts" => Post::with("category")
+                ->orderByDesc("id")
+                ->paginate(),
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the found posts.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function find()
+    {
+        ["q" => $q] = request()->validate([
+            "q" => "required|string|min:2|max:255",
+        ]);
+
+        return view("posts.index", [
+            "posts" => Post::with("category")
+                ->where("title", "LIKE", "%$q%")
+                ->orderByDesc("id")
+                ->paginate(),
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new posts.
      *
      * @return \Illuminate\Http\Response
      */
@@ -40,7 +61,7 @@ class PostController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created posts in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -51,7 +72,7 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified posts.
      *
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
@@ -62,7 +83,7 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified posts.
      *
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
@@ -73,7 +94,7 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified posts in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Post  $post
@@ -85,7 +106,7 @@ class PostController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified posts from storage.
      *
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
