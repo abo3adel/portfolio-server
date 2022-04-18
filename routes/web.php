@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,11 +22,16 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function () {
         ->middleware(["auth"])
         ->name("dashboard");
 
-    Route::get("/tutorials", [PostController::class, "index"])->name('tutorials');
+    Route::get("/tutorials", [PostController::class, "index"])->name(
+        "tutorials"
+    );
 
-    Route::get('f', [PostController::class, 'find'])->name('search');
+    Route::get("f", [PostController::class, "find"])->name("search");
 
+    Route::get("c/{category}", [CategoryController::class, "index"])
+        ->whereAlpha("category")
+        ->name("category.index");
 
-    Route::get("/", [PostController::class, "index"])->name('news');
+    Route::get("/", [PostController::class, "index"])->name("news");
     require __DIR__ . "/auth.php";
 });

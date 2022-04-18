@@ -20,7 +20,7 @@
         </div>
         <nav :class="{'flex bg-blue-700 dark:bg-gray-800': openCollapsedMenu, 'hidden bg-[transparent]': !openCollapsedMenu}"
             class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-center md:flex-row">
-            <a class="md:hidden px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg !text-center dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline capitalize"
+            <a class="md:hidden px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg !text-center dark:bg-transparent dark:hover:bg-gray-600 hover:text-white dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 link focus:bg-gray-200 focus:outline-none focus:shadow-outline capitalize"
                 href="#" x-on:click.prevent="darkMode = !darkMode">
                 <svg class="w-5 h-5" x-show="darkMode" aria-label="Apply light theme" role="image" fill="currentColor"
                     viewbox="0 0 20 20">
@@ -33,17 +33,22 @@
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                 </svg>
             </a>
-            @foreach (['news', 'tutorials'] as $link)
-                <a class="px-4 py-2 mt-2 text-sm font-semibold capitalize bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline {{Route::currentRouteName() === $link ? 'text-gray-900 bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 active' : ''}}"
-                href="{{redirect()->route($link)}}">
+            @foreach (['news', 'tutorials'] as $category)
+                <a @if(request()->is("c/". $category)) 
+                    x-on:click.prevent 
+                    @endif
+                class="link px-4 py-2 mt-2 text-sm font-semibold capitalize rounded-lg  md:mt-0 md:ml-4 
+                dark:hover:bg-gray-600  hover:text-white dark:focus:text-white dark:hover:text-white dark:text-gray-200 focus:outline-none focus:shadow-outline
+                 {{request()->is("c/$category") ? 'text-white bg-blue-800/50 dark:bg-gray-700/60  active' : 'bg-transparent dark:bg-transparent'}}"
+                href="{{route('category.index', compact('category'))}}">
                     <i class="fas fa fa-blog"></i>
-                    <span>{{ __('nav.'. $link) }}</span>
+                    <span>{{ __('nav.'. $category) }}</span>
                 </a>
             @endforeach
             
             <div x-on:click.outside="languageMenu = false" class="relative">
                 <button x-on:click.prevent="languageMenu = !languageMenu"
-                    class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left capitalize bg-transparent rounded-lg dark:bg-transparent dark:focus:text-white dark:hover:text-white dark:focus:bg-gray-600 dark:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                    class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left capitalize bg-transparent rounded-lg dark:bg-transparent dark:focus:text-white dark:hover:text-white dark:focus:bg-gray-600 dark:hover:bg-gray-600 hover:text-white md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 link focus:bg-gray-200 focus:outline-none focus:shadow-outline">
                     <i class="fas fa fa-language"></i>
                     <span>{{ __('nav.language') }}</span>
                     <svg fill="currentColor" viewbox="0 0 20 20" :class="{'rotate-180': languageMenu, 'rotate-0': !languageMenu}"
@@ -62,7 +67,7 @@
                     class="absolute right-0 w-full mt-2 origin-top-right bg-gray-700 rounded-md shadow-lg md:w-48">
                     <div class="px-2 py-2 bg-blue-700 rounded-md shadow dark:shadow-black dark:bg-gray-800">
                         @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline {{ LaravelLocalization::getCurrentLocale() === $localeCode ? 'bg-green-700 hover:bg-teal-500 focus:bg-teal-500 dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:bg-teal-700' : '' }}"
+                            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 hover:text-white dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 link focus:bg-gray-200 focus:outline-none focus:shadow-outline {{ LaravelLocalization::getCurrentLocale() === $localeCode ? 'bg-green-700 hover:bg-teal-500 focus:bg-teal-500 dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:bg-teal-700' : '' }}"
                             {{ LaravelLocalization::getCurrentLocale() === $localeCode ? 'x-on:click.prevent' : '' }}>
                                 {{ $properties['native'] }}
                             </a>
@@ -71,7 +76,7 @@
                 </div>
             </div>
         </nav>
-        <a class="hidden md:inline-block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg !text-center dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline capitalize"
+        <a class="hidden md:inline-block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg !text-center dark:bg-transparent dark:hover:bg-gray-600 hover:text-white dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 link focus:bg-gray-200 focus:outline-none focus:shadow-outline capitalize"
             href="#" x-on:click.prevent="darkMode = !darkMode">
             <svg class="w-5 h-5" x-show="darkMode" aria-label="Apply light theme" role="image" fill="currentColor"
                 viewbox="0 0 20 20">

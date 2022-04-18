@@ -22,15 +22,20 @@ class DatabaseSeeder extends Seeder
     {
         DB::beginTransaction();
 
-        User::factory()->create(['email' => 'admin@site.test']);
+        User::factory()->create(["email" => "admin@site.test"]);
 
         Mail::factory(15)->create();
 
         Project::factory(9)->create();
 
-        $categories = Category::factory(7)->create();
+        $categories = Category::factory(2)
+            ->sequence(
+                ["title" => "news", "slug" => "news"],
+                ["title" => "tutorials", "slug" => "tutorials"]
+            )
+            ->create();
         $categories->each(function (Category $category) {
-            Post::factory(random_int(1, 5))->create([
+            Post::factory(random_int(15, 35))->create([
                 "category_id" => $category->id,
             ]);
         });
