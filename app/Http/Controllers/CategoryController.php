@@ -15,6 +15,10 @@ class CategoryController extends Controller
      */
     public function index(Category $category)
     {
+        // this will allow the search
+        // to be within the currently viewed category
+        session()->flash('from_category', $category->slug);
+
         return view("posts.index", [
             "posts" => Post::whereCategoryId($category->id)
                 ->orderByDesc("id")

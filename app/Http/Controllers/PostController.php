@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -38,13 +39,23 @@ class PostController extends Controller
      */
     public function find()
     {
-        ["q" => $q] = request()->validate([
+        $req = (object) request()->validate([
             "q" => "required|string|min:2|max:255",
+            "_category_view" => "sometimes|string"
         ]);
 
+        $posts = Post::with("category")
+            ->where("title", "LIKE", "%".$req->q."%");
+
+        // search within currently viewed category
+        if (isset($req->_category_view)) {
+            $category = Category::whereSlug($req->_category_view)->firstOrFail();
+
+            $posts->whereCategoryId($category->id);
+        }
+
         return view("posts.index", [
-            "posts" => Post::with("category")
-                ->where("title", "LIKE", "%$q%")
+            "posts" => $posts
                 ->orderByDesc("id")
                 ->paginate(),
         ]);
