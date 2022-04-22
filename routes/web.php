@@ -32,6 +32,9 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function () {
         ->whereAlpha("category")
         ->name("category.index");
 
+    Route::get("/{post}", [PostController::class, "show"])
+        ->name("post.index");
+
     Route::get("/", [PostController::class, "index"])->name("news");
     require __DIR__ . "/auth.php";
 });
