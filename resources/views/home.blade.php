@@ -3,32 +3,29 @@
         @include('home.featured')
 
         <div class="my-6 mt-12">
-            <h1 class="text-2xl text-center uppercase text-gray-600 dark:text-gray-400">
-                {{ __('home.latest_news') }}
-            </h1>
-            <div class="text-center mb-5"><span
-                    class="inline-block w-1 h-1 rounded-full bg-gray-600 dark:bg-gray-400 ml-1"></span>
-                <span class="inline-block w-3 h-1 rounded-full bg-gray-600 dark:bg-gray-400 ml-1"></span>
-                <span class="inline-block w-40 h-1 rounded-full bg-gray-600 dark:bg-gray-400 "></span>
-                <span class="inline-block w-3 h-1 rounded-full bg-gray-600 dark:bg-gray-400 ml-1"></span>
-                <span class="inline-block w-1 h-1 rounded-full bg-gray-600 dark:bg-gray-400 ml-1"></span>
-            </div>
+            <div class="flex mt-16 mb-4 px-4 lg:px-0 items-center justify-between">
+                <h1 class="text-3xl text-center uppercase text-gray-600 dark:text-gray-400">
+                    {{ __('home.latest_news') }}
+                </h1>
 
+                <a href="/c/news" class="px-3 py-1 rounded cursor-pointer border btn">
+                    {{ __('home.view_all') }}
+                </a>
+            </div>
             <x-posts-grid :posts="$latestNews" />
         </div>
 
         <hr />
 
         <div class="my-6">
-            <h1 class="text-2xl text-center uppercase text-gray-600 dark:text-gray-400">
-                {{ __('home.latest_tutorials') }}
-            </h1>
-            <div class="text-center mb-5"><span
-                    class="inline-block w-1 h-1 rounded-full bg-gray-600 dark:bg-gray-400 ml-1"></span>
-                <span class="inline-block w-3 h-1 rounded-full bg-gray-600 dark:bg-gray-400 ml-1"></span>
-                <span class="inline-block w-40 h-1 rounded-full bg-gray-600 dark:bg-gray-400 "></span>
-                <span class="inline-block w-3 h-1 rounded-full bg-gray-600 dark:bg-gray-400 ml-1"></span>
-                <span class="inline-block w-1 h-1 rounded-full bg-gray-600 dark:bg-gray-400 ml-1"></span>
+            <div class="flex mt-16 mb-4 px-4 lg:px-0 items-center justify-between">
+                <h1 class="text-3xl text-center uppercase text-gray-600 dark:text-gray-400">
+                    {{ __('home.latest_tutorials') }}
+                </h1>
+
+                <a href="/c/tutorials" class="px-3 py-1 rounded cursor-pointer border btn">
+                    {{ __('home.view_all') }}
+                </a>
             </div>
 
             <x-posts-grid :posts="$latestTutorials" />
