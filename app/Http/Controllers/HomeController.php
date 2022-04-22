@@ -14,6 +14,14 @@ class HomeController extends Controller
                 ->inRandomOrder()
                 ->limit(4)
                 ->get(),
+            "latestNews" => Post::with('category')->whereCategoryId(1)
+                ->orderByDesc("id")
+                ->limit(6)
+                ->get(),
+            "latestTutorials" => Post::with('category')->whereCategoryId(2)
+                ->orderByDesc("id")
+                ->limit(6)
+                ->get(),
         ]);
     }
 }
