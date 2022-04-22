@@ -6,6 +6,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Str;
 
 class Post extends Model
 {
@@ -14,7 +15,7 @@ class Post extends Model
 
     protected $guarded = [];
 
-    protected $appends = ["updated_diff"];
+    protected $appends = ["updated_diff", "body_mini"];
 
     public function sluggable(): array
     {
@@ -38,5 +39,10 @@ class Post extends Model
     public function getUpdatedDiffAttribute(): string
     {
         return $this->updated_at->format("d M Y");
+    }
+
+    public function getBodyMiniAttribute(): string
+    {
+        return Str::limit($this->body, 150);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,6 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function () {
     Route::get("/{post}", [PostController::class, "show"])
         ->name("post.index");
 
-    Route::get("/", [PostController::class, "index"])->name("news");
+    Route::get("/", [HomeController::class, "index"])->name("home");
     require __DIR__ . "/auth.php";
 });
