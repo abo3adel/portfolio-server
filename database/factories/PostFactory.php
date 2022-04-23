@@ -21,7 +21,7 @@ class PostFactory extends Factory
             "title" => $title,
             "slug" => Str::slug($title),
             "img" => "https://images.test/posts/" . random_int(1, 15) . ".jpg",
-            "body" => $this->faker->randomHtml,
+            "body" => $this->faker->randomHtml(8, 8),
         ];
     }
 }
