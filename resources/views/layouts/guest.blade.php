@@ -30,9 +30,11 @@
 
 <body class="bg-gradient-to-r from-gray-300 to-gray-400 dark:from-gray-800 dark:to-gray-900 dark:text-gray-100">
     @include('layouts.guest-nav')
-    <div class="font-sans antialiased py-24">
+    <div class="py-24 font-sans antialiased">
         {{ $slot }}
     </div>
+
+    @include('footer')
 </body>
 
 </html>
