@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Subscriber;
+use Hash;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,14 +16,34 @@ class HomeController extends Controller
                 ->inRandomOrder()
                 ->limit(4)
                 ->get(),
-            "latestNews" => Post::with('category')->whereCategoryId(1)
+            "latestNews" => Post::with("category")
+                ->whereCategoryId(1)
                 ->orderByDesc("id")
                 ->limit(6)
                 ->get(),
-            "latestTutorials" => Post::with('category')->whereCategoryId(2)
+            "latestTutorials" => Post::with("category")
+                ->whereCategoryId(2)
                 ->orderByDesc("id")
                 ->limit(6)
                 ->get(),
         ]);
+    }
+
+    public function subscribe()
+    {
+        ["email" => $email] = request()->validate([
+            "email" => "required|email|unique:subscribers,email",
+        ]);
+
+        $otp = Hash::make($email . strval(mt_rand(999999, 999999)));
+
+        $done = false;
+
+        $done = !Subscriber::create([
+            "email" => $email,
+            "otp" => $otp,
+        ]) ?: true;
+
+        return response()->json(compact("done"));
     }
 }

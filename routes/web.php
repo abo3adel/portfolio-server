@@ -33,6 +33,8 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function () {
         ->whereAlpha("category")
         ->name("category.index");
 
+    Route::post('/subscribe', [HomeController::class, 'subscribe']);
+
     Route::get("/{post}", [PostController::class, "show"])
         ->name("post.index");
 

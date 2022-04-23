@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="relative px-2 md:px-3">
+    <div class="relative px-2 md:px-3 mx-auto">
         @include('home.featured')
 
         <div class="my-6 mt-12">
@@ -15,7 +15,7 @@
             <x-posts-grid :posts="$latestNews" />
         </div>
 
-        <hr />
+        @include('home.subscribe')
 
         <div class="my-6">
             <div class="flex mt-16 mb-4 px-4 lg:px-0 items-center justify-between">
