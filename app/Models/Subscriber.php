@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subscriber extends Model
 {
     use HasFactory;
-    // use MustVerifyEmail;
+    use MustVerifyEmail;
 
     protected $fillable = ['email', 'otp'];
 }
