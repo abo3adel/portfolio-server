@@ -33,10 +33,14 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function () {
         ->whereAlpha("category")
         ->name("category.index");
 
-    Route::post('/subscribe', [HomeController::class, 'subscribe']);
+    Route::post("/subscribe", [HomeController::class, "subscribe"]);
+    
+    Route::get("/verify-email/{id}/{hashed}", [
+        HomeController::class,
+        "verifyMail",
+    ])->name("newsletter.verify");
 
-    Route::get("/{post}", [PostController::class, "show"])
-        ->name("post.index");
+    Route::get("/{post}", [PostController::class, "show"])->name("post.index");
 
     Route::get("/", [HomeController::class, "index"])->name("home");
     require __DIR__ . "/auth.php";

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Subscriped;
 use App\Models\Post;
 use App\Models\Subscriber;
+use App\Notifications\SendVerifyEmailToSubscriber;
 use Hash;
 use Illuminate\Http\Request;
+use Route;
 
 class HomeController extends Controller
 {
@@ -35,15 +38,31 @@ class HomeController extends Controller
             "email" => "required|email|unique:subscribers,email",
         ]);
 
-        $otp = Hash::make($email . strval(mt_rand(999999, 999999)));
-
-        $done = false;
-
-        $done = !Subscriber::create([
+        $subscriber = Subscriber::create([
             "email" => $email,
-            "otp" => $otp,
-        ]) ?: true;
+            "otp" => Subscriber::getVerifiationHash($email),
+        ]);
 
-        return response()->json(compact("done"));
+        $subscriber->notify(new SendVerifyEmailToSubscriber());
+
+        return response()->json([
+            "done" => (bool) $subscriber,
+        ]);
+    }
+
+    public function verifyMail(string $id, string $hashed)
+    {
+        abort_unless(request()->hasValidSignature(), 403);
+
+        $subscriber = Subscriber::findOrFail(
+            (new \Hashids\Hashids())->decode($id)[0]
+        , ['email_verified_at', 'otp']);
+
+        abort_unless($subscriber->otp === $hashed, 403);
+
+        $subscriber->email_verified_at = now()->toDateTimeString();
+        $subscriber->update();
+
+        return view("newsletter.verify");
     }
 }

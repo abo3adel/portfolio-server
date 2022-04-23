@@ -65,7 +65,7 @@
                 </div>
             </template>
             <form class="mt-4 mb-10" method="POST">
-                <input type="email" class="rounded bg-gray-100 dark:text-gray-800 px-4 py-2 border focus:border-green-400"
+                <input type="email" class="rounded bg-gray-100 dark:text-gray-800 px-4 py-2 border focus:border-green-400" dir='ltr'
                     placeholder="mahmoud@tech.com" name="email" x-model.trim="email"
                     :class="!testMail() ? 'focus:border-red-500' : ''" />
 

@@ -10,5 +10,11 @@ return [
         "heads" => "Heads Up!",
         "confirm" => "please confirm your email address",
         "error" => "an error occured, please try again later",
+        "verify" => [
+            "done" => "Email Address verification completed!",
+            "thank" => "Thank you for subscribing to my Newsletter",
+            "great" => "Have a great day!",
+            "home" => "home",
+        ]
     ],
 ];

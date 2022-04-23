@@ -8,6 +8,7 @@
         "php": "^8.1",
         "cviebrock/eloquent-sluggable": "^9.0",
         "guzzlehttp/guzzle": "^7.2",
+        "hashids/hashids": "^4.1",
         "hedronium/spaceless-blade": "^3.0",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
