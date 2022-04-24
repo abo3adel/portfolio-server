@@ -126,9 +126,6 @@ Route::screen("email/send", EmailSenderScreen::class)->name("email.send");
 Route::screen("email", EmailIndexScreen::class)->name("email.index");
 
 Route::screen("posts/{post}", PostIndexScreen::class)->name("admin.post.edit");
-Route::screen("posts/{post}/remove", PostIndexScreen::class)->name(
-    "admin.post.remove"
-);
 Route::screen("posts", PostIndexScreen::class)->name("admin.post.index");
 
 Route::screen("category/{category}", PostIndexScreen::class)->name(

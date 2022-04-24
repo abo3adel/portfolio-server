@@ -3,11 +3,14 @@
 namespace App\Orchid\Screens;
 
 use App\Models\Post;
+use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Group;
 use Orchid\Screen\Screen;
 use Orchid\Screen\TD;
+use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
+use Request;
 
 class PostIndexScreen extends Screen
 {
@@ -75,12 +78,19 @@ class PostIndexScreen extends Screen
                         Link::make("edit")
                             ->icon("pencil")
                             ->route("admin.post.edit", compact("post")),
-                        Link::make("remove")
+                        Button::make("remove")
                             ->icon("trash")
-                            ->route("admin.post.remove", compact("post")),
+                            ->method("destroy", ['post' => $post->slug]),
                     ]);
                 }),
             ]),
         ];
+    }
+
+    public function destroy(Request $request, Post $post)
+    {
+        $post->deleteOrFail();
+
+        Alert::success('Post was DELETED successfully');
     }
 }
