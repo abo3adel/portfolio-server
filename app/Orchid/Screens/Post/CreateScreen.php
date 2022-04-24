@@ -4,6 +4,7 @@ namespace App\Orchid\Screens\Post;
 
 use Alert;
 use App\Models\Category;
+use App\Models\Post;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Quill;
@@ -12,17 +13,36 @@ use Orchid\Screen\Screen;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
 use Illuminate\Http\Request;
+use Orchid\Screen\Fields\SimpleMDE;
+use Orchid\Screen\Fields\TextArea;
 
 class CreateScreen extends Screen
 {
+    protected bool $isEdit = false;
+
+    protected array $rules = [
+        "title" => "required|string|max:255",
+        "img" => "required|url",
+        "body" => "required|string",
+    ];
+
     /**
      * Query data.
      *
      * @return array
      */
-    public function query(): iterable
+    public function query(?string $post = null): iterable
     {
-        return [];
+        if ($post) {
+            $post = Post::whereSlug($post)->firstOrFail();
+            $this->isEdit = true;
+        }
+
+        return [
+            "title" => $post?->title,
+            "img" => $post?->img,
+            "body" => $post?->body,
+        ];
     }
 
     /**
@@ -43,10 +63,10 @@ class CreateScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make("create post")
+            Button::make(($this->isEdit ? "Update" : "Create") . " post")
                 ->icon("plus")
                 ->type(Color::PRIMARY())
-                ->method("save"),
+                ->method($this->isEdit ? "update" : "save"),
         ];
     }
 
@@ -62,7 +82,10 @@ class CreateScreen extends Screen
                 Relation::make("category")
                     ->title("Category")
                     ->help("enter category slug")
-                    ->fromModel(Category::class, "title", "slug"),
+                    ->fromModel(Category::class, "title", "slug")
+                    ->disabled($this->isEdit)
+                    ->canSee(!$this->isEdit)
+                    ->required(!$this->isEdit),
 
                 Input::make("title")
                     ->title("Title")
@@ -76,8 +99,9 @@ class CreateScreen extends Screen
                     ->required()
                     ->type("url"),
 
-                Quill::make("body")
+                TextArea::make("body")
                     ->title("Content")
+                    ->rows(7)
                     ->required()
                     ->placeholder("Insert text here ...")
                     ->help("Add the content for the post"),
@@ -87,12 +111,11 @@ class CreateScreen extends Screen
 
     public function save(Request $request)
     {
-        $req = (object) $request->validate([
-            "category" => "required|string",
-            "title" => "required|string|max:255",
-            "img" => "required|url",
-            "body" => "required",
-        ]);
+        $req = (object) $request->validate(
+            [
+                "category" => "required|string",
+            ] + $this->rules
+        );
 
         $cat = Category::whereSlug($req->category)->firstOrFail();
 
@@ -105,5 +128,19 @@ class CreateScreen extends Screen
         if ($saved) {
             Alert::success("post created Successfully");
         }
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        $req = $request->validate($this->rules);
+
+        $updated = $post->fill($req);
+
+        if (!$updated) {
+            Alert::error("an error occured");
+            return;
+        }
+
+        Alert::success("post updated successfully");
     }
 }
