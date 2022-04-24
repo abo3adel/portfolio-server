@@ -34,7 +34,7 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function () {
         ->name("category.index");
 
     Route::post("/subscribe", [HomeController::class, "subscribe"]);
-    
+
     Route::get("/verify-email/{id}/{hashed}", [
         HomeController::class,
         "verifyMail",

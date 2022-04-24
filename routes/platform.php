@@ -12,6 +12,7 @@ use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
 use App\Orchid\Screens\Examples\ExampleScreen;
 use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\PostIndexScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -123,3 +124,13 @@ Route::screen("example-advanced", ExampleFieldsAdvancedScreen::class)->name(
 Route::screen("email/send", EmailSenderScreen::class)->name("email.send");
 
 Route::screen("email", EmailIndexScreen::class)->name("email.index");
+
+Route::screen("posts/{post}", PostIndexScreen::class)->name("admin.post.edit");
+Route::screen("posts/{post}/remove", PostIndexScreen::class)->name(
+    "admin.post.remove"
+);
+Route::screen("posts", PostIndexScreen::class)->name("admin.post.index");
+
+Route::screen("category/{category}", PostIndexScreen::class)->name(
+    "admin.category.show"
+);
