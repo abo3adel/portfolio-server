@@ -8,6 +8,7 @@ use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Group;
 use Orchid\Screen\Screen;
 use Orchid\Screen\TD;
+use Orchid\Support\Color;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
 use Request;
@@ -74,13 +75,17 @@ class PostIndexScreen extends Screen
                     return Group::make([
                         Link::make("show")
                             ->icon("full-screen")
-                            ->route("post.index", compact("post")),
+                            ->route("post.index", compact("post"))
+                            ->type(Color::PRIMARY()),
+
                         Link::make("edit")
                             ->icon("pencil")
-                            ->route("admin.post.edit", compact("post")),
+                            ->route("admin.post.edit", compact("post"))
+                            ->type(Color::INFO()),
                         Button::make("remove")
                             ->icon("trash")
-                            ->method("destroy", ['post' => $post->slug]),
+                            ->method("destroy", ["post" => $post->slug])
+                            ->type(Color::DANGER()),
                     ]);
                 }),
             ]),
@@ -91,6 +96,6 @@ class PostIndexScreen extends Screen
     {
         $post->deleteOrFail();
 
-        Alert::success('Post was DELETED successfully');
+        Alert::success("Post was DELETED successfully");
     }
 }

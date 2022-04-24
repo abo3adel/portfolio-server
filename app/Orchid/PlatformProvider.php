@@ -48,9 +48,9 @@ class PlatformProvider extends OrchidServiceProvider
                         ->icon("list")
                         ->route("admin.post.index"),
 
-                    // Menu::make("Email Sender")
-                    //     ->icon("envelope-letter")
-                    //     ->route("email.send"),
+                    Menu::make("Create Post")
+                        ->icon("plus")
+                        ->route("admin.post.create"),
                 ]),
 
             Menu::make("Example screen")
