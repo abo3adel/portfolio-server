@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\EmailIndexScreen;
 use App\Orchid\Screens\EmailSenderScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
@@ -97,8 +98,7 @@ Route::screen("roles", RoleListScreen::class)
     });
 
 // Example...
-Route::screen("example", ExampleScreen::class)
-    ->name("platform.example");
+Route::screen("example", ExampleScreen::class)->name("platform.example");
 
 Route::screen("example-fields", ExampleFieldsScreen::class)->name(
     "platform.example.fields"
@@ -120,5 +120,6 @@ Route::screen("example-advanced", ExampleFieldsAdvancedScreen::class)->name(
 );
 
 //Route::screen('idea', Idea::class, 'platform.screens.idea');
-Route::screen("email", EmailSenderScreen::class)
-    ->name("platform.email");
+Route::screen("email/send", EmailSenderScreen::class)->name("email.send");
+
+Route::screen("email", EmailIndexScreen::class)->name("email.index");
