@@ -2,6 +2,7 @@
 
 namespace App\Orchid\Screens\Project;
 
+use Alert;
 use App\Models\Project;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
@@ -52,10 +53,10 @@ class ProjectShowScreen extends Screen
                     "project" => $this->project->slug,
                 ])
                 ->type(Color::INFO()),
-            // Button::make("Remove")
-            //     ->icon("trash")
-            //     ->method("remove")
-            //     ->type(Color::DANGER()),
+            Button::make("Remove")
+                ->icon("trash")
+                ->method("remove")
+                ->type(Color::DANGER()),
             ModalToggle::make("project shots")
                 ->modal("shots")
                 ->method("getShots")
@@ -78,7 +79,11 @@ class ProjectShowScreen extends Screen
             ]),
             Layout::legend("project", [
                 Sight::make("id"),
-                Sight::make("img")->render(fn (Project $project) => "<img src='{$project->img}' style='max-width: 100%' />"),
+                Sight::make("img")->render(
+                    fn(
+                        Project $project
+                    ) => "<img src='{$project->img}' style='max-width: 100%' />"
+                ),
                 Sight::make("title"),
                 Sight::make("link")->render(function (Project $project) {
                     return Group::make([
@@ -120,5 +125,12 @@ class ProjectShowScreen extends Screen
     public function getShots()
     {
         // nothing
+    }
+
+    public function destroy(Project $project)
+    {
+        $project->delete();
+
+        Alert::success("Project DELETED successfully");
     }
 }

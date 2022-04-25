@@ -90,11 +90,4 @@ class IndexScreen extends Screen
             ]),
         ];
     }
-
-    public function destroy(Project $project)
-    {
-        $project->delete();
-
-        Alert::success("Project DELETED successfully");
-    }
 }
