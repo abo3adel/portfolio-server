@@ -4,7 +4,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
-// use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |
@@ -21,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(["prefix" => LaravelLocalization::setLocale(), 'middleware' => ['localeCookieRedirect', 'localeSessionRedirect']], function () {
     app()->setLocale(LaravelLocalization::getCurrentLocale());
