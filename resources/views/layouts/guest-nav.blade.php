@@ -1,11 +1,11 @@
 <!-- Navigation Start -->
-<div class="fixed z-50 w-full transition bg-blue-700 dark:bg-gray-800 text-gray-200" x-ref="nav" x-data="{ openCollapsedMenu: false, languageMenu: false }" x-on:click.outside="openCollapsedMenu = false">
+<div class="fixed z-50 w-full text-gray-200 transition bg-blue-700 dark:bg-gray-800" x-ref="nav" x-data="{ openCollapsedMenu: false, languageMenu: false }" x-on:click.outside="openCollapsedMenu = false">
     <div
         class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
         <div class="flex flex-row items-center justify-between p-4">
             <a href="/"
                 class="text-lg font-semibold tracking-widest text-white whitespace-pre rounded-lg focus:outline-none focus:shadow-outline"
-                style="font-variant: small-caps">{{ __('nav.portfolio') }}</a>
+                style="font-variant: small-caps">{{ __('home.nav.portfolio') }}</a>
             <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline"
                 x-on:click.prevent="openCollapsedMenu = !openCollapsedMenu">
                 <svg fill="currentColor" viewbox="0 0 20 20" class="w-6 h-6">
@@ -42,7 +42,7 @@
                  {{request()->is("c/$category") ? 'text-white bg-blue-800/50 dark:bg-gray-700/60  active' : 'bg-transparent dark:bg-transparent'}}"
                 href="{{route('category.index', compact('category'))}}">
                     <i class="fas fa fa-blog"></i>
-                    <span>{{ __('nav.'. $category) }}</span>
+                    <span>{{ __('home.nav.'. $category) }}</span>
                 </a>
             @endforeach
             
@@ -50,7 +50,7 @@
                 <button x-on:click.prevent="languageMenu = !languageMenu"
                     class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left capitalize bg-transparent rounded-lg dark:bg-transparent dark:focus:text-white dark:hover:text-white dark:focus:bg-gray-600 dark:hover:bg-gray-600 hover:text-white md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 link focus:bg-gray-200 focus:outline-none focus:shadow-outline">
                     <i class="fas fa fa-language"></i>
-                    <span>{{ __('nav.language') }}</span>
+                    <span>{{ __('home.nav.language') }}</span>
                     <svg fill="currentColor" viewbox="0 0 20 20" :class="{'rotate-180': languageMenu, 'rotate-0': !languageMenu}"
                         class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
                         <path fill-rule="evenodd"
