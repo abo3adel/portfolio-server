@@ -11,6 +11,7 @@ use App\Orchid\Screens\Examples\ExampleFieldsScreen;
 use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
 use App\Orchid\Screens\Examples\ExampleScreen;
 use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
+use App\Orchid\Screens\Mail\MailIndexScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Post\CreateScreen;
 use App\Orchid\Screens\PostIndexScreen;
@@ -139,9 +140,15 @@ Route::screen("category/{category}", PostIndexScreen::class)->name(
     "admin.category.show"
 );
 
+Route::screen("project/create", ProjectCreateScreen::class)->name(
+    "admin.project.create"
+);
+Route::screen("project/{project}/edit", ProjectCreateScreen::class)->name(
+    "admin.project.edit"
+);
+Route::screen("project/{project}", ProjectShowScreen::class)->name(
+    "admin.project.show"
+);
+Route::screen("project", IndexScreen::class)->name("admin.project.index");
 
-
-Route::screen('project/create', ProjectCreateScreen::class)->name('admin.project.create');
-Route::screen('project/{project}/edit', ProjectCreateScreen::class)->name('admin.project.edit');
-Route::screen('project/{project}', ProjectShowScreen::class)->name('admin.project.show');
-Route::screen('project', IndexScreen::class)->name('admin.project.index');
+Route::screen("mail", MailIndexScreen::class)->name("admin.mail.index");
