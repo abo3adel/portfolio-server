@@ -20,7 +20,8 @@ class PostFactory extends Factory
             "category_id" => Category::factory()->create(),
             "title" => $title,
             "slug" => Str::slug($title),
-            "img" => "https://images.test/posts/" . random_int(1, 15) . ".jpg",
+            // "img" => "https://images.test/posts/" . random_int(1, 15) . ".jpg",
+            'img' => '/laravel-logo.png',
             "body" => $this->faker->randomHtml(8, 8),
         ];
     }
