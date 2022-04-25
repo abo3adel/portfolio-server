@@ -21,7 +21,7 @@ class PostFactory extends Factory
             "title" => $title,
             "slug" => Str::slug($title),
             // "img" => "https://images.test/posts/" . random_int(1, 15) . ".jpg",
-            'img' => '/laravel-logo.png',
+            'img' => 'https://aboadel-portfolio.herokuapp.com/laravel-logo.png',
             "body" => $this->faker->randomHtml(8, 8),
         ];
     }
