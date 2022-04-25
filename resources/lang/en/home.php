@@ -9,8 +9,9 @@ return [
     ],
 
     "view_all" => "view all",
-    "latest_news" => "LATEST_NEWS",
-    "latest_tutorials" => "LATEST_TUTORIALS",
+    "latest_news" => "LATEST NEWS",
+    "latest_tutorials" => "LATEST TUTORIALS",
+    'read_more' => "Read More",
 
     "sub" => [
         "title" => "Subscribe to newsletter",

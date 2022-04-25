@@ -3,7 +3,10 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Mcamara\LaravelLocalization\LaravelLocalization as LaravelLocalizationLaravelLocalization;
 
 /*
 |
@@ -21,36 +24,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+$localize = new LaravelLocalizationLaravelLocalization();
 
-Route::group(["prefix" => LaravelLocalization::setLocale(), 'middleware' => ['localeCookieRedirect', 'localeSessionRedirect']], function () {
-    app()->setLocale(LaravelLocalization::getCurrentLocale());
+Route::group(
+    [
+        "prefix" => $localize->setLocale(),
+        "middleware" => ["localeCookieRedirect", "localeSessionRedirect"],
+    ],
+    function () use ($localize) {
+        app()->setLocale($localize->getCurrentLocale());
+        Carbon::setLocale($localize->getCurrentLocale());
 
-    // Route::get("/dashboard", function () {
-    //     return view("dashboard");
-    // })
-    //     ->middleware(["auth"])
-    //     ->name("dashboard");
+        // Route::get("/dashboard", function () {
+        //     return view("dashboard");
+        // })
+        //     ->middleware(["auth"])
+        //     ->name("dashboard");
 
-    Route::get("/tutorials", [PostController::class, "index"])->name(
-        "tutorials"
-    );
+        Route::get("/tutorials", [PostController::class, "index"])->name(
+            "tutorials"
+        );
 
-    Route::get("f", [PostController::class, "find"])->name("search");
+        Route::get("f", [PostController::class, "find"])->name("search");
 
-    Route::get("c/{category}", [CategoryController::class, "index"])
-        ->whereAlpha("category")
-        ->name("category.index");
+        Route::get("c/{category}", [CategoryController::class, "index"])
+            ->whereAlpha("category")
+            ->name("category.index");
 
-    Route::post("/subscribe", [HomeController::class, "subscribe"]);
+        Route::post("/subscribe", [HomeController::class, "subscribe"]);
 
-    Route::get("/verify-email/{id}/{hashed}", [
-        HomeController::class,
-        "verifyMail",
-    ])->name("newsletter.verify");
+        Route::get("/verify-email/{id}/{hashed}", [
+            HomeController::class,
+            "verifyMail",
+        ])->name("newsletter.verify");
 
-    Route::get("/{post}", [PostController::class, "show"])->name("post.index");
+        Route::get("/{post}", [PostController::class, "show"])->name(
+            "post.index"
+        );
 
-    Route::get("/", [HomeController::class, "index"])->name("home");
-    require __DIR__ . "/auth.php";
-});
+        Route::get("/", [HomeController::class, "index"])->name("home");
+        require __DIR__ . "/auth.php";
+    }
+);

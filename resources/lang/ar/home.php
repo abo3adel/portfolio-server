@@ -11,6 +11,7 @@ return [
     "view_all" => "عرض الكل",
     "latest_news" => "آخر الأخبار",
     "latest_tutorials" => "آخر الدروس",
+    'read_more' => "أكمل قراءة",
 
     "sub" => [
         "title" => "إشترك فى النشرة الإخبارية ",
