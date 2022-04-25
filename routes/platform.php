@@ -21,6 +21,8 @@ use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
+use App\Orchid\Screens\Project\IndexScreen;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -135,3 +137,10 @@ Route::screen("posts", PostIndexScreen::class)->name("admin.post.index");
 Route::screen("category/{category}", PostIndexScreen::class)->name(
     "admin.category.show"
 );
+
+
+
+Route::screen('project/create', IndexScreen::class)->name('admin.project.create');
+Route::screen('project/{project}/edit', IndexScreen::class)->name('admin.project.edit');
+Route::screen('project/{project}', IndexScreen::class)->name('admin.project.show');
+Route::screen('project', IndexScreen::class)->name('admin.project.index');
