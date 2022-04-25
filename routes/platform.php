@@ -141,6 +141,6 @@ Route::screen("category/{category}", PostIndexScreen::class)->name(
 
 
 Route::screen('project/create', ProjectCreateScreen::class)->name('admin.project.create');
-Route::screen('project/{project}/edit', IndexScreen::class)->name('admin.project.edit');
+Route::screen('project/{project}/edit', ProjectCreateScreen::class)->name('admin.project.edit');
 Route::screen('project/{project}', IndexScreen::class)->name('admin.project.show');
 Route::screen('project', IndexScreen::class)->name('admin.project.index');

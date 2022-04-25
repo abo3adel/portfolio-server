@@ -3,9 +3,8 @@
 namespace App\Orchid\Screens\Project;
 
 use Alert;
-use App\Models\Post;
 use App\Models\Project;
-use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Select;
@@ -13,18 +12,42 @@ use Orchid\Screen\Fields\TextArea;
 use Orchid\Screen\Screen;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
-use Request;
 
 class ProjectCreateScreen extends Screen
 {
+    protected bool $isEdit = false;
+
+    protected array $rules = [
+        "title" => "required|string|max:255",
+        "link" => "required|url|max:255",
+        "type" => "required|in:all,laravel,spa,mobile",
+        "img" => "required|url|max:255",
+        "download_url" => "nullable|url|max:255",
+        "shots" => "nullable|string|max:255",
+        "tags" => "nullable|string|max:255",
+    ];
+
     /**
      * Query data.
      *
      * @return array
      */
-    public function query(): iterable
+    public function query(?string $project = null): iterable
     {
-        return [];
+        if ($project) {
+            $project = Project::whereSlug($project)->firstOrFail();
+            $this->isEdit = true;
+        }
+
+        return [
+            "title" => $project?->title,
+            "img" => $project?->img,
+            "link" => $project?->link,
+            "type" => $project?->type,
+            "download_url" => $project?->download_url,
+            "shots" => join(",", $project?->shots ?? []),
+            "tags" => join(",", $project?->tags ?? []),
+        ];
     }
 
     /**
@@ -45,10 +68,10 @@ class ProjectCreateScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make("Create")
+            Button::make(($this->isEdit ? "Update" : "Create") . " Project")
                 ->icon("plus")
                 ->type(Color::PRIMARY())
-                ->method("save"),
+                ->method($this->isEdit ? "update" : "save"),
         ];
     }
 
@@ -101,23 +124,30 @@ class ProjectCreateScreen extends Screen
         ];
     }
 
-    public function save(HttpRequest $request)
+    public function save(Request $request)
     {
-        $req = $request->validate([
-            "title" => "required|string|max:255",
-            "link" => "required|url|max:255",
-            "type" => "required|in:all,laravel,spa,mobile",
-            "img" => "required|url|max:255",
-            "download_url" => "nullable|url|max:255",
-            "shots" => "nullable|string|max:255",
-            "tags" => "nullable|string|max:255",
-        ]);
+        $req = $request->validate($this->rules);
 
         if (Project::create($req)) {
             Alert::success("project created successfully");
             return;
         }
 
-        Alert::error("an error occured");
+        Alert::error("an error occured, please try again later");
+    }
+
+    public function update(Request $request, Project $project)
+    {
+        $req = $request->validate($this->rules);
+        $req['shots'] = explode(',', $req['shots']);
+        $req['tags'] = explode(',', $req['tags']);
+
+        if ($project->update($req)) {
+            Alert::success("project updated successfully");
+            return redirect()->route("admin.project.show", [
+                "project" => $project->slug,
+            ]);
+        }
+        Alert::error("an error occured, please try again later");
     }
 }
