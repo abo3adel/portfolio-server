@@ -4,10 +4,15 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+// use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
-|--------------------------------------------------------------------------
+|
+
+,
+        
+        "spatie/laravel-sitemap": "^5.8",
+        --------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
