@@ -3,10 +3,10 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
-use Carbon\Carbon;
+// use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 // use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use Mcamara\LaravelLocalization\LaravelLocalization as LaravelLocalizationLaravelLocalization;
+// use Mcamara\LaravelLocalization\LaravelLocalization as LaravelLocalizationLaravelLocalization;
 
 /*
 |
@@ -24,16 +24,16 @@ use Mcamara\LaravelLocalization\LaravelLocalization as LaravelLocalizationLarave
 |
 */
 
-$localize = new LaravelLocalizationLaravelLocalization();
+// $localize = new LaravelLocalizationLaravelLocalization();
 
 Route::group(
     [
-        "prefix" => $localize->setLocale(),
-        "middleware" => ["localeCookieRedirect", "localeSessionRedirect"],
+        // "prefix" => $localize->setLocale(),
+        // "middleware" => ["localeCookieRedirect", "localeSessionRedirect"],
     ],
-    function () use ($localize) {
-        app()->setLocale($localize->getCurrentLocale());
-        Carbon::setLocale($localize->getCurrentLocale());
+    function () {
+        // app()->setLocale($localize->getCurrentLocale());
+        // Carbon::setLocale($localize->getCurrentLocale());
 
         // Route::get("/dashboard", function () {
         //     return view("dashboard");

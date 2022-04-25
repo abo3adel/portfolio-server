@@ -46,7 +46,7 @@
                 </a>
             @endforeach
             
-            <div x-on:click.outside="languageMenu = false" class="relative">
+            {{-- <div x-on:click.outside="languageMenu = false" class="relative">
                 <button x-on:click.prevent="languageMenu = !languageMenu"
                     class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left capitalize bg-transparent rounded-lg dark:bg-transparent dark:focus:text-white dark:hover:text-white dark:focus:bg-gray-600 dark:hover:bg-gray-600 hover:text-white md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 link focus:bg-gray-200 focus:outline-none focus:shadow-outline">
                     <i class="fas fa fa-language"></i>
@@ -74,7 +74,7 @@
                     @endforeach
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </nav>
         <a class="hidden md:inline-block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg !text-center dark:bg-transparent dark:hover:bg-gray-600 hover:text-white dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 link focus:bg-gray-200 focus:outline-none focus:shadow-outline capitalize"
             href="#" x-on:click.prevent="darkMode = !darkMode">
