@@ -21,8 +21,8 @@
             <div class="absolute top-0 left-0 z-0 h-2 pl-5 bg-blue-600 md:mt-6 mt-7 md:h-3 rounded-3xl"></div>
             <div class="pb-2 bg-gray-100 shadow-xl dark:bg-gray-700 rounded-xl">
                 <div class="relative">
-                    <a href="/{{ $post->slug }}">
-                        <img src="{{ $post->img }}" class="object-cover max-w-full rounded-t-xl" alt="" />
+                    <a href="/{{ $post->slug }}" class="text-center mx-auto">
+                        <img src='/rings.svg' data-src="{{ $post->img }}" class="lozad object-cover max-w-full rounded-t-xl min-h-[11rem] mx-auto" alt="" />
                     </a>
                     <div
                         class="absolute bottom-0 right-0 px-2 mb-2 mr-2 text-xs font-medium text-gray-100 bg-yellow-500 rounded-lg">
