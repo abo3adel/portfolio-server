@@ -22,7 +22,7 @@ use App\Orchid\Screens\User\UserProfileScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 use App\Orchid\Screens\Project\IndexScreen;
-
+use App\Orchid\Screens\Project\ProjectCreateScreen;
 
 /*
 |--------------------------------------------------------------------------
@@ -140,7 +140,7 @@ Route::screen("category/{category}", PostIndexScreen::class)->name(
 
 
 
-Route::screen('project/create', IndexScreen::class)->name('admin.project.create');
+Route::screen('project/create', ProjectCreateScreen::class)->name('admin.project.create');
 Route::screen('project/{project}/edit', IndexScreen::class)->name('admin.project.edit');
 Route::screen('project/{project}', IndexScreen::class)->name('admin.project.show');
 Route::screen('project', IndexScreen::class)->name('admin.project.index');

@@ -60,9 +60,9 @@ class PlatformProvider extends OrchidServiceProvider
                         ->icon("list")
                         ->route("admin.project.index"),
 
-                    // Menu::make("Create Post")
-                    //     ->icon("plus")
-                    //     ->route("admin.post.create"),
+                    Menu::make("Create Post")
+                        ->icon("plus")
+                        ->route("admin.project.create"),
                 ]),
 
             Menu::make("Example screen")

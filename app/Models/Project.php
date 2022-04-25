@@ -15,7 +15,7 @@ class Project extends Model
     use Sluggable;
     use AsSource, Filterable, Attachable;
 
-    protected $guared = [];
+    protected $guarded = [];
 
     protected $casts = [
         'shots' =>  'array',
