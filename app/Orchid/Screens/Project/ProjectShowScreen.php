@@ -5,6 +5,7 @@ namespace App\Orchid\Screens\Project;
 use App\Models\Project;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
+use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Fields\Group;
 use Orchid\Screen\Screen;
 use Orchid\Screen\Sight;
@@ -51,10 +52,15 @@ class ProjectShowScreen extends Screen
                     "project" => $this->project->slug,
                 ])
                 ->type(Color::INFO()),
-            Button::make("Remove")
-                ->icon("trash")
-                ->method("remove")
-                ->type(Color::DANGER()),
+            // Button::make("Remove")
+            //     ->icon("trash")
+            //     ->method("remove")
+            //     ->type(Color::DANGER()),
+            ModalToggle::make("project shots")
+                ->modal("shots")
+                ->method("getShots")
+                ->icon("full-screen")
+                ->type(Color::PRIMARY()),
         ];
     }
 
@@ -66,9 +72,13 @@ class ProjectShowScreen extends Screen
     public function layout(): iterable
     {
         return [
+            // modal first
+            Layout::modal("shots", [
+                Layout::view("components.admin.project.modal"),
+            ]),
             Layout::legend("project", [
                 Sight::make("id"),
-                Sight::make("img"),
+                Sight::make("img")->render(fn (Project $project) => "<img src='{$project->img}' style='max-width: 100%' />"),
                 Sight::make("title"),
                 Sight::make("link")->render(function (Project $project) {
                     return Group::make([
@@ -85,36 +95,30 @@ class ProjectShowScreen extends Screen
                         Color::INFO()
                     )
                 ),
-                Sight::make("download_url")->render(function (
-                    Project $project
-                ) {
-                    return Group::make([
-                        $project->download_url,
-                        Link::make("dwonload")
-                            ->icon("save")
-                            ->type(Color::SUCCESS())
-                            ->href($project->download_url)
-                            ->target("_blank"),
-                    ]);
-                }),
-                Sight::make("shots")->render(
-                    fn(Project $project) => view(
-                        "components.admin.project-tags",
-                        ["arr" => $project->shots, "block" => true]
-                    )
-                ),
+                Sight::make("download_url")
+                    ->render(function (Project $project) {
+                        return Group::make([
+                            $project->download_url,
+                            Link::make("dwonload")
+                                ->icon("save")
+                                ->type(Color::SUCCESS())
+                                ->href($project->download_url ?? "")
+                                ->target("_blank"),
+                        ]);
+                    })
+                    ->canSee((bool) $this->project->download_url),
                 Sight::make("tags")->render(
                     fn(Project $project) => view(
-                        "components.admin.project-tags",
-                        ["arr" => $project->tags, "block" => false]
+                        "components.admin.project.project-tags",
+                        ["tags" => $project->tags]
                     )
                 ),
             ]),
         ];
     }
 
-    public function remove(Project $project)
+    public function getShots()
     {
-        # code...
+        // nothing
     }
 }
