@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 
 // $localize = new LaravelLocalizationLaravelLocalization();
 
+require __DIR__ . "/auth.php";
+
 Route::group(
     [
         // "prefix" => $localize->setLocale(),
@@ -58,11 +60,10 @@ Route::group(
             "verifyMail",
         ])->name("newsletter.verify");
 
+        Route::get("/", [HomeController::class, "index"])->name("home");
+
         Route::get("/{post}", [PostController::class, "show"])->name(
             "post.index"
         );
-
-        Route::get("/", [HomeController::class, "index"])->name("home");
-        require __DIR__ . "/auth.php";
     }
 );
