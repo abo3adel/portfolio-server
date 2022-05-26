@@ -26,12 +26,9 @@ use Illuminate\Support\Facades\Route;
 
 // $localize = new LaravelLocalizationLaravelLocalization();
 
-Route::fallback(function(Exception $exception){
-    dd($exception, $exception->getMessage());
-    return ;
-});
-
 require __DIR__ . "/auth.php";
+
+require __DIR__ . "/platform.php";
 
 // Route::group(
 //     [
@@ -68,3 +65,8 @@ Route::get("p/{post}", [PostController::class, "show"])->name("post.index");
 Route::get("/", [HomeController::class, "index"])->name("home");
 //     }
 // );
+
+Route::fallback(function(Exception $exception){
+    dd($exception, $exception->getMessage());
+    return ;
+});
