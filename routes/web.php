@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Request;
 // use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 // use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -64,7 +65,7 @@ Route::get("/", [HomeController::class, "index"])->name("home");
 //     }
 // );
 
-Route::fallback(function(Exception $exception){
-    dd($exception, $exception->getMessage());
-    return ;
-});
+// Route::fallback(function(Exception $exception, Request $request){
+//     // dd(route('platform.index'), route('platform.login'));
+//     return ;
+// });
