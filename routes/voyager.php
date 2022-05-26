@@ -6,6 +6,7 @@ use TCG\Voyager\Events\RoutingAdmin;
 use TCG\Voyager\Events\RoutingAdminAfter;
 use TCG\Voyager\Events\RoutingAfter;
 use TCG\Voyager\Facades\Voyager;
+use TCG\Voyager\Http\Controllers\VoyagerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,9 @@ Route::group(['as' => 'voyager.'], function () {
 
         // Main Admin and Logout Route
         Route::get('/', ['uses' => $namespacePrefix.'VoyagerController@index',   'as' => 'dashboard']);
+
+        // Route::get('/', [VoyagerController::class, 'index'])->name('dashboard');
+
         Route::post('logout', ['uses' => $namespacePrefix.'VoyagerController@logout',  'as' => 'logout']);
         Route::post('upload', ['uses' => $namespacePrefix.'VoyagerController@upload',  'as' => 'upload']);
 

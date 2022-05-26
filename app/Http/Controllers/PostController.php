@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use TCG\Voyager\VoyagerServiceProvider;
 
 class PostController extends Controller
 {
@@ -90,6 +92,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        
+        dd(App::resolveProvider(VoyagerServiceProvider::class));
         return view('posts.show', compact('post'));
     }
 

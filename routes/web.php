@@ -10,13 +10,6 @@ use Illuminate\Support\Facades\Route;
 // use Mcamara\LaravelLocalization\LaravelLocalization as LaravelLocalizationLaravelLocalization;
 
 /*
-|
-
-,
-        
-        "spatie/laravel-sitemap": "^5.8",
-        --------------------------------------------------------------------------
-| Web Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -29,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . "/auth.php";
 
-Route::group(['prefix' => 'admin'], function () {
-    require __DIR__ . "/voyager.php";    
-});
+// Route::group(['prefix' => 'admin'], function () {
+//     require __DIR__ . "/voyager.php";    
+// });
 
 // Route::group(
 //     [
