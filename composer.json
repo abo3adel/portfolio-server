@@ -17,7 +17,8 @@
         "mcamara/laravel-localization": "^1.7",
         "orchid/crud": "^3.6",
         "orchid/platform": "^12.3",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "tcg/voyager": "^1.5"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",
