@@ -35,7 +35,7 @@
                     <p class="my-4 text-gray-500 dark:text-gray-400" x-text="active.body_mini"></p>
 
                     <div class="py-5 my-3">
-                        <a :href="'/p'+ ac'/p/' + tive.slug" class="btn">
+                        <a :href="'/p'+ active.slug" class="btn">
                             {{ __('home.read_more') }}
                         </a>
                     </div>

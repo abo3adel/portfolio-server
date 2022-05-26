@@ -26,44 +26,45 @@ use Illuminate\Support\Facades\Route;
 
 // $localize = new LaravelLocalizationLaravelLocalization();
 
+Route::fallback(function(Exception $exception){
+    dd($exception, $exception->getMessage());
+    return ;
+});
+
 require __DIR__ . "/auth.php";
 
-Route::group(
-    [
-        // "prefix" => $localize->setLocale(),
-        // "middleware" => ["localeCookieRedirect", "localeSessionRedirect"],
-    ],
-    function () {
-        // app()->setLocale($localize->getCurrentLocale());
-        // Carbon::setLocale($localize->getCurrentLocale());
+// Route::group(
+//     [
+// "prefix" => $localize->setLocale(),
+// "middleware" => ["localeCookieRedirect", "localeSessionRedirect"],
+// ],
+// function () {
+// app()->setLocale($localize->getCurrentLocale());
+// Carbon::setLocale($localize->getCurrentLocale());
 
-        // Route::get("/dashboard", function () {
-        //     return view("dashboard");
-        // })
-        //     ->middleware(["auth"])
-        //     ->name("dashboard");
+// Route::get("/dashboard", function () {
+//     return view("dashboard");
+// })
+//     ->middleware(["auth"])
+//     ->name("dashboard");
 
-        Route::get("/tutorials", [PostController::class, "index"])->name(
-            "tutorials"
-        );
+Route::get("/tutorials", [PostController::class, "index"])->name("tutorials");
 
-        Route::get("f", [PostController::class, "find"])->name("search");
+Route::get("f", [PostController::class, "find"])->name("search");
 
-        Route::get("c/{category}", [CategoryController::class, "index"])
-            ->whereAlpha("category")
-            ->name("category.index");
+Route::get("c/{category}", [CategoryController::class, "index"])
+    ->whereAlpha("category")
+    ->name("category.index");
 
-        Route::post("/subscribe", [HomeController::class, "subscribe"]);
+Route::post("/subscribe", [HomeController::class, "subscribe"]);
 
-        Route::get("/verify-email/{id}/{hashed}", [
-            HomeController::class,
-            "verifyMail",
-        ])->name("newsletter.verify");
+Route::get("/verify-email/{id}/{hashed}", [
+    HomeController::class,
+    "verifyMail",
+])->name("newsletter.verify");
 
-        Route::get("p/{post}", [PostController::class, "show"])->name(
-            "post.index"
-        );
+Route::get("p/{post}", [PostController::class, "show"])->name("post.index");
 
-        Route::get("/", [HomeController::class, "index"])->name("home");
-    }
-);
+Route::get("/", [HomeController::class, "index"])->name("home");
+//     }
+// );
