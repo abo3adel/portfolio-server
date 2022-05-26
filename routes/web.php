@@ -29,6 +29,10 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . "/auth.php";
 
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
+
 // Route::group(
 //     [
 // "prefix" => $localize->setLocale(),
@@ -69,3 +73,4 @@ Route::get("/", [HomeController::class, "index"])->name("home");
 //     // dd(route('platform.index'), route('platform.login'));
 //     return ;
 // });
+

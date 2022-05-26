@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
-use Orchid\Platform\Models\User as Authenticatable;
+// use Orchid\Platform\Models\User as Authenticatable;
 
-class User extends Authenticatable
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends \TCG\Voyager\Models\User
 {
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
