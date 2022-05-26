@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 require __DIR__ . "/auth.php";
 
 Route::group(['prefix' => 'admin'], function () {
-    \Voyager::routes();
+    \TCG\Voyager\Facades\Voyager::routes();
 });
 
 // Route::group(
