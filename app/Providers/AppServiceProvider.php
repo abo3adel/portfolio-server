@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\FormFields\TagFormField;
 use Illuminate\Support\ServiceProvider;
+use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\VoyagerServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         // }
 
         $this->app->register(VoyagerServiceProvider::class);
+        Voyager::addFormField(TagFormField::class);
     }
 
     /**
