@@ -60,10 +60,10 @@ Route::group(
             "verifyMail",
         ])->name("newsletter.verify");
 
-        Route::get("/", [HomeController::class, "index"])->name("home");
-
-        Route::get("/{post}", [PostController::class, "show"])->name(
+        Route::get("p/{post}", [PostController::class, "show"])->name(
             "post.index"
         );
+
+        Route::get("/", [HomeController::class, "index"])->name("home");
     }
 );

@@ -21,7 +21,7 @@
             <div class="absolute top-0 left-0 z-0 h-2 pl-5 bg-blue-600 md:mt-6 mt-7 md:h-3 rounded-3xl"></div>
             <div class="pb-2 bg-gray-100 shadow-xl dark:bg-gray-700 rounded-xl">
                 <div class="relative">
-                    <a href="/{{ $post->slug }}" class="text-center mx-auto">
+                    <a href="/p/{{ $post->slug }}" class="mx-auto text-center">
                         <img src='/rings.svg' data-src="{{ $post->img }}" class="lozad object-cover max-w-full rounded-t-xl min-h-[11rem] mx-auto" alt="" />
                     </a>
                     <div
@@ -32,7 +32,7 @@
                 </div>
                 <div class="px-2 py-1">
                     <!-- Product Title -->
-                    <a href="/{{ $post->slug }}"
+                    <a href="/p/{{ $post->slug }}"
                         class="pr-2 text-sm font-bold text-center text-gray-800 capitalize md:text-base dark:text-white">{{ $post->title }}</a>
                 </div>
             </div>

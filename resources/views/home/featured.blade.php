@@ -15,9 +15,9 @@
                 x-text="active.category.title"></a>
             <div class="absolute top-0 left-0 h-2 px-2 mt-6 bg-blue-500 md:mt-5 md:h-3"></div>
             <div class="absolute top-0 left-0 z-0 h-2 pl-5 bg-blue-600 md:mt-6 mt-7 md:h-3 rounded-3xl"></div>
-            <div class="pb-2 bg-gray-100 shadow-xl dark:bg-gray-700  rounded-xl">
+            <div class="pb-2 bg-gray-100 shadow-xl dark:bg-gray-700 rounded-xl">
                 <div class="relative">
-                    <a :href="active.slug">
+                    <a :href="'/p/' + active.slug">
                         <img :src="active.img" class="object-cover max-w-full rounded-t-xl min-h-64" alt="post image" />
                     </a>
                     <div
@@ -28,14 +28,14 @@
                 </div>
                 <div class="px-2 py-1">
                     <!-- Product Title -->
-                    <a :href="active.slug"
-                        class="pr-2 text-sm font-bold text-gray-800 capitalize md:text-base dark:text-white text-center"
+                    <a :href="'/p/' + active.slug"
+                        class="pr-2 text-sm font-bold text-center text-gray-800 capitalize md:text-base dark:text-white"
                         x-text="active.title"></a>
 
-                    <p class="text-gray-500 dark:text-gray-400 my-4" x-text="active.body_mini"></p>
+                    <p class="my-4 text-gray-500 dark:text-gray-400" x-text="active.body_mini"></p>
 
-                    <div class="my-3 py-5">
-                        <a :href="'/'+ active.slug" class="btn">
+                    <div class="py-5 my-3">
+                        <a :href="'/p'+ ac'/p/' + tive.slug" class="btn">
                             {{ __('home.read_more') }}
                         </a>
                     </div>
@@ -52,7 +52,7 @@
                         x-on:click="active = post">
                         <!-- Tag Discount -->
                         <a href='#' x-on:click.prevent
-                            class="absolute top-0 left-0 z-30 px-2 mt-3 text-sm font-medium text-gray-100 capitalize bg-blue-500 rounded-lg md:block small-caps block sm:hidden"
+                            class="absolute top-0 left-0 z-30 block px-2 mt-3 text-sm font-medium text-gray-100 capitalize bg-blue-500 rounded-lg md:block small-caps sm:hidden"
                             x-text="post.category.title"></a>
                         <div class="absolute top-0 left-0 h-2 px-2 mt-6 bg-blue-500 md:mt-5 md:h-3 sm:hidden md:block">
                         </div>
@@ -60,23 +60,22 @@
                             class="absolute top-0 left-0 z-0 h-2 pl-5 bg-blue-600 md:mt-6 mt-7 md:h-3 rounded-3xl sm:hidden md:block">
                         </div>
                         <div
-                            class="bg-gray-100 shadow-xl dark:bg-gray-600  rounded-xl group-hover:bg-blue-700 group-hover:text-white text-gray-800">
+                            class="text-gray-800 bg-gray-100 shadow-xl dark:bg-gray-600 rounded-xl group-hover:bg-blue-700 group-hover:text-white">
                             <div class="flex flex-col sm:flex-row">
                                 <div>
-                                    <a :href="post.slug">
-                                        <img :src="post.img" class="object-cover max-w-full rounded-t-xl
-                                            md:rounded-t-none md:rounded-l-xl sm:h-32 block sm:hidden md:block"
+                                    <a :href="'/p/' + post.slug">
+                                        <img :src="post.img" class="block object-cover max-w-full rounded-t-xl md:rounded-t-none md:rounded-l-xl sm:h-32 sm:hidden md:block"
                                             alt="post image" />
                                     </a>
                                 </div>
                                 <div class="px-1 py-1">
-                                    <p class="text-gray-500 dark:text-gray-400 invisible sm:visible md:invisible uppercase text-sm"
+                                    <p class="invisible text-sm text-gray-500 uppercase dark:text-gray-400 sm:visible md:invisible"
                                         x-text="post.category.title"></p>
                                     <!-- Product Title -->
-                                    <p class="text-sm font-bold  capitalize md:text-base dark:text-white text-center"
+                                    <p class="text-sm font-bold text-center capitalize md:text-base dark:text-white"
                                         x-text="post.title"></p>
 
-                                    <p class="text-gray-500 dark:text-gray-400 my-4 block sm:hidden"
+                                    <p class="block my-4 text-gray-500 dark:text-gray-400 sm:hidden"
                                         x-text="active.body_mini"></p>
                                 </div>
                             </div>
