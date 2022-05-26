@@ -91,9 +91,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
-    {
-        
-        dd(App::resolveProvider(VoyagerServiceProvider::class));
+    {        
         return view('posts.show', compact('post'));
     }
 
