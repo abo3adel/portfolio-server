@@ -17,7 +17,7 @@ class PostFactory extends Factory
     {
         $title = $this->faker->sentence;
         return [
-            "category_id" => Category::factory()->create(),
+            "category_id" => fn() => Category::factory()->create(),
             "title" => $title,
             "slug" => Str::slug($title),
             // "img" => "https://images.test/posts/" . random_int(1, 15) . ".jpg",
