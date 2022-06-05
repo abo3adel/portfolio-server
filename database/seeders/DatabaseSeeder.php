@@ -35,7 +35,9 @@ class DatabaseSeeder extends Seeder
             )
             ->create();
         $categories->each(function (Category $category) {
-            Post::factory(random_int(15, 25))->create([
+            Post::factory(random_int(15, 25))->state(
+                app()->environment('local') ? 'onLocal' : 'onProd'
+            )->create([
                 "category_id" => $category->id,
             ]);
         });

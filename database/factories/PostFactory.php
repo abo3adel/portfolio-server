@@ -21,8 +21,28 @@ class PostFactory extends Factory
             "title" => $title,
             "slug" => Str::slug($title),
             // "img" => "https://images.test/posts/" . random_int(1, 15) . ".jpg",
-            'img' => 'https://aboadel-portfolio.herokuapp.com/laravel-logo.png',
+            "img" => "https://aboadel-portfolio.herokuapp.com/laravel-logo.png",
             "body" => $this->faker->randomHtml(8, 8),
         ];
+    }
+
+    public function onLocal(): self
+    {
+        return $this->state(
+            fn(array $attr) => [
+                "img" =>
+                    "https://images.test/posts/" . random_int(1, 15) . ".jpg",
+            ]
+        );
+    }
+
+    public function onProd(): self
+    {
+        return $this->state(
+            fn(array $attr) => [
+                "img" =>
+                    "https://aboadel-portfolio.herokuapp.com/laravel-logo.png",
+            ]
+        );
     }
 }

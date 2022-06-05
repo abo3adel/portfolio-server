@@ -91,7 +91,7 @@ class SendVerifyEmailToSubscriber extends Notification
                 Config::get("auth.verification.expire", 3)
             ),
             [
-                "id" => $notifiable->getHashId(),
+                "id" => $notifiable->hashId,
                 "hashed" => Subscriber::getVerifiationHash($notifiable->email),
             ]
         );

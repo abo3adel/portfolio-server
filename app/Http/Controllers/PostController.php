@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App;
 use App\Models\Post;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use TCG\Voyager\VoyagerServiceProvider;
 
@@ -43,24 +44,24 @@ class PostController extends Controller
     {
         $req = (object) request()->validate([
             "q" => "required|string|min:2|max:255",
-            "_category_view" => "sometimes|string"
+            "_category_view" => "sometimes|string",
         ]);
 
-        $posts = Post::with("category")
-            ->where("title", "LIKE", "%".$req->q."%");
+        $posts = Post::with("category:id,title,slug")
+            ->where("title", "LIKE", "%" . $req->q . "%")
+            // search within currently viewed category
+            ->when(
+                isset($req->_category_view),
+                fn(Builder $q) => $q->whereRelation(
+                    "category",
+                    "slug",
+                    $req->_category_view
+                )
+            )
+            ->orderByDesc("id")
+            ->paginate();
 
-        // search within currently viewed category
-        if (isset($req->_category_view)) {
-            $category = Category::whereSlug($req->_category_view)->firstOrFail();
-
-            $posts->whereCategoryId($category->id);
-        }
-
-        return view("posts.index", [
-            "posts" => $posts
-                ->orderByDesc("id")
-                ->paginate(),
-        ]);
+        return view("posts.index", compact("posts"));
     }
 
     /**
@@ -91,8 +92,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
-    {        
-        return view('posts.show', compact('post'));
+    {
+        return view("posts.show", compact("post"));
     }
 
     /**
